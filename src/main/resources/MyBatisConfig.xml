@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--配置-->
+<configuration>
+    <!--环境：
+    开发
+    生产
+    default: 默认选择的环境,其中一个环境的id值
+    环境是可以配置多个
+    -->
+    <environments default="dev">
+        <!--其中一个环境： id:环境的唯一标识-->
+        <environment id="dev">
+            <!--事务管理
+             type:JDBC: 由JDBC提供事务管理：（事务提交，事务回滚）
+                  Managed:没有提供事务提交与回滚，可以由容器实现对它进行管理，由容器实现事务的提交与回滚
+                 比如：Spring容器
+            -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--数据源：
+            type:
+            POOLED:遵循了池的概念，获取连接的时候，从连接池中获取，使用完之后，返回到连接器中；
+            UNPOOLED:每一次操作都需要获取连接，释放连接
+            JNDI:支持服务器上定义的连接池的，通过JNDI上下文对象获取连接
+           -->
+            <dataSource type="POOLED">
+                <!--property:属性    name:属性名： value:属性值
+                属性名是固定不变的，属性值根据个人需求来配置
+                -->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/test"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+        <environment id="prod">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/test"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!--加载映射文件：可以在这个标签中配置多个映射文件：-->
+    <mappers>
+        <!--resource：安装类路径的方式获取映射文件
+            url: 硬盘路径
+            class:  接口类
+        -->
+        <mapper resource="com/offcn/dao/UserMapper.xml"/>
+    </mappers>
+</configuration>

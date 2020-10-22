@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mapper:映射
+   namespace:映射文件中的命名空间： 为了区别不同的mapper.xml
+-->
+<mapper namespace="userMapper">
+
+    <!--select:查询
+     id:这个标签唯一标识
+     resultType:查询数据返回的结果类型：通常情况下是类的全限定名
+    -->
+    <select id="findUsers" resultType="com.offcn.entity.Student">
+        select id,name,age,sex from tuser
+    </select>
+
+    <select id="findById" resultType="com.offcn.entity.Student">
+        select id,name,age,sex from tuser where id=#{id}
+    </select>
+
+    <!--insert:添加   id:唯一标识；parameterType：所调用方法需要的参数类型
+    #{变量名}： ===变量名对应的get方法：变量名一定是参数对象中存在的属性名
+    -->
+    <insert id="addUser" parameterType="com.offcn.entity.Student">
+        insert into tuser values(#{id},#{name},#{age},#{sex})
+    </insert>
+
+    <update id="updateUser" parameterType="com.offcn.entity.Student">
+        update tuser set name=#{name},age=#{age},sex=#{sex} where id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from tuser where id=#{id}
+    </delete>
+</mapper>
